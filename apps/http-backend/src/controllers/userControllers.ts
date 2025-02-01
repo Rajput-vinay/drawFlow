@@ -2,7 +2,8 @@ import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import { zodSignupSchema, zodSignInSchema, zodRoomSchema } from "@repo/common/types";
-
+import dotenv from "dotenv"
+dotenv.config()
 import uuid4 from "uuid4";
 import {prismaClient} from "@repo/database/client"
 // User Sign-Up
@@ -87,6 +88,7 @@ export const userSignIn = async (req: Request, res: Response): Promise<any> => {
 
     // Generate JWT
     const jwtSecret = process.env.JWT_SECRET;
+    console.log(jwtSecret)
     if (!jwtSecret) {
       throw new Error("JWT_SECRET is not set in environment variables.");
     }

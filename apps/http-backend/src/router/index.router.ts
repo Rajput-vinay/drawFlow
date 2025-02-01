@@ -3,7 +3,8 @@ import { userSignIn } from "../controllers/userControllers";
 import { userSignUp } from "../controllers/userControllers";
 import { createRoom } from "../controllers/userControllers";
 import userMiddleware from '../middlewares/userMiddlewares';
-
+import dotenv from "dotenv"
+dotenv.config()
  const router: Router = express.Router()
 
 router.post("/signup", userSignUp);

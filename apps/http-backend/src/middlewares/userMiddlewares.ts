@@ -1,12 +1,14 @@
 import { NextFunction, Request, Response } from "express";
 
 import jwt, { JwtPayload } from 'jsonwebtoken'
-
-
+import dotenv from "dotenv"
+dotenv.config()
 const userMiddleware = async (req: Request, res: Response, next: NextFunction): Promise<any> =>{
 
    try {
+      console.log(req.headers.authorization)
       const token= req.headers.authorization?.split(" ")[1]; 
+      
  
       if(!token){
          return res.status(401).json({
@@ -23,8 +25,8 @@ const userMiddleware = async (req: Request, res: Response, next: NextFunction): 
          })
       }
  
-      req.userId = (decoded as JwtPayload).id
- 
+      req.userId = (decoded as JwtPayload).userId
+    console.log("decoded",decoded)  
       next()
    } catch (error) {
     console.log("error from middleware", error)
