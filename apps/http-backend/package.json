@@ -16,6 +16,7 @@
     "uuid4": "^2.0.3"
   },
   "devDependencies": {
+    "@repo/database": "workspace:*",
     "@repo/common": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "@types/bcryptjs": "^2.4.6",

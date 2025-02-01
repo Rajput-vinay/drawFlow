@@ -2,10 +2,11 @@ import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import { zodSignupSchema, zodSignInSchema, zodRoomSchema } from "@repo/common/types";
-import { prisma } from "../prisma"; // Adjust the import for your Prisma client
-import { v4 as uuidv4 } from "uuid"; 
+
+import uuid4 from "uuid4";
+import {prismaClient} from "@repo/database/client"
 // User Sign-Up
-export const userSignUp = async (req: Request, res: Response) => {
+export const userSignUp = async (req: Request, res: Response):Promise<any> => {
   const result = zodSignupSchema.safeParse(req.body);
 
   if (!result.success) {
@@ -16,10 +17,10 @@ export const userSignUp = async (req: Request, res: Response) => {
   }
 
   try {
-    const { email, password, username } = result.data;
+    const { email, password, name } = result.data;
 
     // Check if the user already exists
-    const existingUser = await prisma.user.findUnique({ where: { email } });
+    const existingUser = await prismaClient.user.findUnique({ where: { email } });
     if (existingUser) {
       return res.status(400).json({
         message: "User already exists",
@@ -30,28 +31,31 @@ export const userSignUp = async (req: Request, res: Response) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Create the user
-    await prisma.user.create({
+    await prismaClient.user.create({
       data: {
         email,
         password: hashedPassword,
-        username,
+        name,
       },
     });
+
+
+  
 
     return res.status(201).json({
       message: "User registered successfully",
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error("Error in userSignUp:", error);
     return res.status(500).json({
       message: "Server error",
-      error: error.message,
+      errors: error.message,
     });
   }
 };
 
 // User Sign-In
-export const userSignIn = async (req: Request, res: Response) => {
+export const userSignIn = async (req: Request, res: Response): Promise<any> => {
   const result = zodSignInSchema.safeParse(req.body);
 
   if (!result.success) {
@@ -65,7 +69,7 @@ export const userSignIn = async (req: Request, res: Response) => {
     const { email, password } = result.data;
 
     // Find the user by email
-    const user = await prisma.user.findUnique({ where: { email } });
+    const user = await prismaClient.user.findUnique({ where: { email } });
 
     if (!user) {
       return res.status(404).json({
@@ -93,7 +97,7 @@ export const userSignIn = async (req: Request, res: Response) => {
       message: "Successfully logged in",
       token,
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error("Error in userSignIn:", error);
     return res.status(500).json({
       message: "Server error",
@@ -104,7 +108,7 @@ export const userSignIn = async (req: Request, res: Response) => {
 
 
 
-const createRoom = async (req: Request, res: Response) => {
+export const createRoom = async (req: Request, res: Response): Promise<any> => {
     // Validate the input against the schema
     const result = zodRoomSchema.safeParse(req.body);
     if (!result.success) {
@@ -124,14 +128,14 @@ const createRoom = async (req: Request, res: Response) => {
       }
   
       // Generate a unique room ID
-      const roomId = uuidv4();
+      const roomId = uuid4();
   
       // Return the room ID
       return res.status(201).json({
         message: "Room created successfully",
         roomId,
       });
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error in createRoom:", error);
       return res.status(500).json({
         message: "Server error",

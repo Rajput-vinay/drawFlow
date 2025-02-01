@@ -30,7 +30,7 @@ wss.on('connection', function connection(ws, request) {
         let decodedToken;
         try {
             decodedToken = jwt.verify(token, jwtSecret);
-        } catch (error) {
+        } catch (error: any) {
             console.error('Invalid token:', error);
             ws.close(4004, 'Invalid token');
             return;
@@ -56,7 +56,7 @@ wss.on('connection', function connection(ws, request) {
             console.log(`Connection closed for user: ${decodedToken.userId}`);
         });
 
-    } catch (error) {
+    } catch (error: any) {
         console.error('Error during WebSocket connection:', error);
         ws.close(1011, 'Internal server error');
     }
