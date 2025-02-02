@@ -1,8 +1,10 @@
 import { NextFunction, Request, Response } from "express";
-
 import jwt, { JwtPayload } from 'jsonwebtoken'
 import dotenv from "dotenv"
 dotenv.config()
+
+
+// Middleware to check if the user is logged in
 const userMiddleware = async (req: Request, res: Response, next: NextFunction): Promise<any> =>{
 
    try {

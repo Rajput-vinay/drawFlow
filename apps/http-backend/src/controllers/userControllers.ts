@@ -109,7 +109,7 @@ export const userSignIn = async (req: Request, res: Response): Promise<any> => {
 };
 
 
-
+// Create a room
 export const createRoom = async (req: Request, res: Response): Promise<any> => {
     // Validate the input against the schema
     const result = zodRoomSchema.safeParse(req.body);
@@ -129,19 +129,107 @@ export const createRoom = async (req: Request, res: Response): Promise<any> => {
         });
       }
   
-      // Generate a unique room ID
-      const roomId = uuid4();
-  
+      const room = await prismaClient.room.create({
+        data: {
+          slug: result.data.name,
+          adminId: userId,
+        },
+      });
+     
       // Return the room ID
       return res.status(201).json({
-        message: "Room created successfully",
-        roomId,
+        roomId : room.id,
       });
     } catch (error: any) {
-      console.error("Error in createRoom:", error);
       return res.status(500).json({
         message: "Server error",
         error: error.message,
       });
     }
   };
+
+
+  //  get roomId
+
+ export const roomId = async (req: Request, res: Response): Promise<any> => {
+    try {
+      // check if user Id is present in the request 
+
+      const userId = req.userId;
+      if( !userId){
+        return res.status(401).json({
+          message:"user not authenticated"
+        });
+      }
+
+      // get the room id from the request
+      const roomId = Number(req.params.roomId);
+
+      if(!roomId){
+        return res.status(400).json({
+          message:"Room id is required"
+        });
+      }
+
+      const message = await prismaClient.room.findMany({
+        where:{
+          id:roomId
+        },
+        orderBy:{
+          id:"desc"
+        },
+        take:1000
+
+      });
+
+      res.status(200).json({  
+        message
+      });
+    }
+    catch(error: any){
+      return res.status(500).json({
+        message:"server error",
+        error: error.message
+      });
+    }
+  }
+
+
+  export const slug = async (req: Request, res: Response): Promise<any> => {
+    try {
+      const userId = req.userId;
+      if (!userId) {
+        return res.status(401).json({
+          message: "User not authenticated",
+        });
+      }
+  
+      const slug = req.params.slug;
+      if (!slug) {
+        return res.status(400).json({
+          message: "Slug is required",
+        });
+      }
+  
+      const room = await prismaClient.room.findUnique({
+        where: {
+          slug,
+        },
+      });
+  
+      if (!room) {
+        return res.status(404).json({
+          message: "Room not found",
+        });
+      }
+  
+      return res.status(200).json({
+        room
+      });
+    } catch (error: any) {
+      return res.status(500).json({
+        message: "Server error",
+        error: error.message,
+      });
+    }
+  }
