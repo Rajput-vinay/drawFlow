@@ -4,9 +4,11 @@ import bcrypt from "bcryptjs";
 import { zodSignupSchema, zodSignInSchema, zodRoomSchema } from "@repo/common/types";
 import dotenv from "dotenv"
 dotenv.config()
-import uuid4 from "uuid4";
 import {prismaClient} from "@repo/database/client"
 // User Sign-Up
+
+
+
 export const userSignUp = async (req: Request, res: Response):Promise<any> => {
   const result = zodSignupSchema.safeParse(req.body);
 

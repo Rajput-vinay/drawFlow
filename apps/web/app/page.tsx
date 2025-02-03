@@ -1,102 +1,154 @@
-import Image, { type ImageProps } from "next/image";
-import { Button } from "@repo/ui/button";
-import styles from "./page.module.css";
 
-type Props = Omit<ImageProps, "src"> & {
-  srcLight: string;
-  srcDark: string;
-};
+import { 
+  Pencil, 
+  Share2, 
+  Cloud, 
+  Users, 
+  Shapes, 
+  Palette,
+  ChevronRight,
+  
+} from 'lucide-react';
+import Link from 'next/link';
 
-const ThemeImage = (props: Props) => {
-  const { srcLight, srcDark, ...rest } = props;
-
-  return (
-    <>
-      <Image {...rest} src={srcLight} className="imgLight" />
-      <Image {...rest} src={srcDark} className="imgDark" />
-    </>
-  );
-};
 
 export default function Home() {
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <ThemeImage
-          className={styles.logo}
-          srcLight="turborepo-dark.svg"
-          srcDark="turborepo-light.svg"
-          alt="Turborepo logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>apps/web/app/page.tsx</code>
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <div className="min-h-screen bg-white">
+      {/* Hero Section */}
+      <header className="bg-gradient-to-b from-purple-50 to-white">
+        <nav className="container mx-auto px-6 py-4 flex justify-between items-center">
+          <div className="flex items-center space-x-2">
+            <Shapes className="w-8 h-8 text-purple-600" />
+            <span className="text-xl font-bold text-gray-800">DrawFlow</span>
+          </div>
+          <div className="flex items-center space-x-6">
+            <a href="#features" className="text-gray-600 hover:text-gray-900">Features</a>
+            <a href="#" className="text-gray-600 hover:text-gray-900">Docs</a>
+            <a href="#" className="text-gray-600 hover:text-gray-900">Blog</a>
+            <Link href="/signin" className="text-gray-600 hover:text-gray-900">Sign In</Link>
+            <Link href="/signup" 
+                  className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors">
+              Sign Up
+            </Link>
+          </div>
+        </nav>
 
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new/clone?demo-description=Learn+to+implement+a+monorepo+with+a+two+Next.js+sites+that+has+installed+three+local+packages.&demo-image=%2F%2Fimages.ctfassets.net%2Fe5382hct74si%2F4K8ZISWAzJ8X1504ca0zmC%2F0b21a1c6246add355e55816278ef54bc%2FBasic.png&demo-title=Monorepo+with+Turborepo&demo-url=https%3A%2F%2Fexamples-basic-web.vercel.sh%2F&from=templates&project-name=Monorepo+with+Turborepo&repository-name=monorepo-turborepo&repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fturborepo%2Ftree%2Fmain%2Fexamples%2Fbasic&root-directory=apps%2Fdocs&skippable-integrations=1&teamSlug=vercel&utm_source=create-turbo"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://turbo.build/repo/docs?utm_source"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
+        <div className="container mx-auto px-6 py-24 text-center">
+          <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-8">
+            Whiteboarding,
+            <span className="text-purple-600"> reimagined</span>
+          </h1>
+          <p className="text-xl text-gray-600 mb-12 max-w-2xl mx-auto">
+            Create beautiful hand-drawn diagrams, wireframes, and illustrations with our intuitive drawing tool. 
+            Collaborate in real-time, export anywhere.
+          </p>
+          <div className="flex justify-center space-x-4">
+            <Link
+              href="/signup"
+              className="bg-purple-600 text-white px-8 py-3 rounded-lg font-medium flex items-center hover:bg-purple-700 transition-colors"
+            >
+              Start Drawing
+              <ChevronRight className="w-5 h-5 ml-2" />
+            </Link>
+            <button className="border-2 border-gray-300 text-gray-700 px-8 py-3 rounded-lg font-medium hover:border-gray-400 transition-colors">
+              Try Demo
+            </button>
+          </div>
         </div>
-        <Button appName="web" className={styles.secondary}>
-          Open alert
-        </Button>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com/templates?search=turborepo&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://turbo.build?utm_source=create-turbo"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to turbo.build →
-        </a>
+      </header>
+
+      {/* Preview Section */}
+      <section className="py-20">
+        <div className="container mx-auto px-6">
+          <div className="rounded-xl overflow-hidden shadow-2xl">
+            <img 
+              src="https://images.unsplash.com/photo-1611224923853-80b023f02d71?auto=format&fit=crop&w=2000&q=80" 
+              alt="DrawFlow Interface Preview"
+              className="w-full object-cover"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section id="features" className="py-20 bg-gray-50">
+        <div className="container mx-auto px-6">
+          <h2 className="text-3xl font-bold text-center text-gray-900 mb-16">
+            Everything you need to bring ideas to life
+          </h2>
+          
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-12">
+            <FeatureCard 
+              icon={<Pencil className="w-6 h-6 text-purple-600" />}
+              title="Intuitive Drawing"
+              description="Natural hand-drawn feel with smart shape recognition and smooth freehand drawing."
+            />
+            <FeatureCard 
+              icon={<Share2 className="w-6 h-6 text-purple-600" />}
+              title="Easy Sharing"
+              description="Share your drawings instantly with a link or export to various formats."
+            />
+            <FeatureCard 
+              icon={<Cloud className="w-6 h-6 text-purple-600" />}
+              title="Cloud Sync"
+              description="Your drawings are automatically saved and synced across all devices."
+            />
+            <FeatureCard 
+              icon={<Users className="w-6 h-6 text-purple-600" />}
+              title="Real-time Collaboration"
+              description="Work together with your team in real-time, see changes instantly."
+            />
+            <FeatureCard 
+              icon={<Shapes className="w-6 h-6 text-purple-600" />}
+              title="Smart Shapes"
+              description="Perfect geometric shapes with intelligent recognition and snapping."
+            />
+            <FeatureCard 
+              icon={<Palette className="w-6 h-6 text-purple-600" />}
+              title="Custom Styling"
+              description="Personalize your drawings with custom colors, fonts, and styles."
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-gray-900 text-gray-300 py-12">
+        <div className="container mx-auto px-6">
+          <div className="flex flex-col md:flex-row justify-between items-center">
+            <div className="flex items-center space-x-2 mb-4 md:mb-0">
+              <Shapes className="w-6 h-6 text-purple-400" />
+              <span className="text-lg font-semibold text-white">DrawFlow</span>
+            </div>
+            <div className="flex space-x-6">
+              <a href="#" className="hover:text-white transition-colors">Privacy</a>
+              <a href="#" className="hover:text-white transition-colors">Terms</a>
+              <a href="#" className="hover:text-white transition-colors">Contact</a>
+            </div>
+          </div>
+          <div className="mt-8 text-center md:text-left text-sm">
+            © {new Date().getFullYear()} DrawFlow. All rights reserved.
+          </div>
+        </div>
       </footer>
+    </div>
+  );
+}
+
+interface featureCardPros {
+  icon ?: React.ReactNode,
+  title ?: string,
+  description ?: string
+}
+function FeatureCard({ icon, title, description }: featureCardPros) {
+  return (
+    <div className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
+      <div className="mb-4">
+        {icon}
+      </div>
+      <h3 className="text-xl font-semibold text-gray-900 mb-3">{title}</h3>
+      <p className="text-gray-600">{description}</p>
     </div>
   );
 }
