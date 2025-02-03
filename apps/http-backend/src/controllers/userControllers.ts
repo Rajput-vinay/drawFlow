@@ -161,12 +161,12 @@ export const createRoom = async (req: Request, res: Response): Promise<any> => {
     try {
       // check if user Id is present in the request 
 
-      const userId = req.userId;
-      if( !userId){
-        return res.status(401).json({
-          message:"user not authenticated"
-        });
-      }
+      // const userId = req.userId;
+      // if( !userId){
+      //   return res.status(401).json({
+      //     message:"user not authenticated"
+      //   });
+      // }
 
       // get the room id from the request
       const roomId = Number(req.params.roomId);
@@ -177,9 +177,9 @@ export const createRoom = async (req: Request, res: Response): Promise<any> => {
         });
       }
 
-      const message = await prismaClient.room.findMany({
+      const message = await prismaClient.chat.findMany({
         where:{
-          id:roomId
+          roomId:roomId
         },
         orderBy:{
           id:"desc"

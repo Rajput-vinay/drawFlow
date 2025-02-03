@@ -5,8 +5,7 @@ import Link from 'next/link';
 import axios from 'axios';
 import { useRouter } from "next/navigation";
 import {toast} from 'react-hot-toast';
-import useFetch from '../hooks/useFetch';
-import { sign } from 'crypto';
+
 
 
 export default function SignUp() {

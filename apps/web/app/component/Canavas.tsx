@@ -26,13 +26,13 @@ export function Canvas({ roomId, socket }: CanvasProps) {
     // Initialize drawing on the canvas after it's mounted
     useEffect(() => {
         if (canvasRef.current) {
-            initDraw({ canvas: canvasRef.current });
+            initDraw({ canvas: canvasRef.current, roomId,socket });
         }
     }, []);
 
     return (
         <div>
-            <canvas ref={canvasRef} width={width} height={height}></canvas>
+            <canvas ref={canvasRef} width={2000} height={1000}></canvas>
         </div>
     );
 }

@@ -23,13 +23,9 @@ export function RoomCanvas({ roomId }: RoomCanvasProps) {
             wss.send(data);
         };
 
-        // Cleanup WebSocket connection when the component unmounts
-        return () => {
-            if (wss.readyState === WebSocket.OPEN) {
-                wss.close();
-            }
-        };
-    }, [roomId]); // Only re-run effect if roomId changes
+        
+       
+    }, []); // Only re-run effect if roomId changes
 
     if (!socket) {
         return <div>Loading...</div>;

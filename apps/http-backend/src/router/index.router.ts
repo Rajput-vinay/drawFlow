@@ -11,7 +11,8 @@ import { roomId } from '../controllers/userControllers';
 
 router.post("/signup", userSignUp);
 router.post("/signin",userSignIn);
-router.post("/createRoom",userMiddleware,createRoom);
 router.get("/chats/:roomId",roomId);
 router.get("/room/:slug",slug)
+router.post("/createRoom",userMiddleware,createRoom);
+
 export default router

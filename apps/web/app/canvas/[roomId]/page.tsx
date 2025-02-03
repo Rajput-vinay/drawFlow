@@ -1,16 +1,9 @@
 import { RoomCanvas } from "../../component/RoomCanvas";
 
+export default async function CanvasPage({ params }: { params: { roomId: string } }) {
+  const { roomId } = await params; // Await params before accessing properties
 
+  console.log("CanvasPage roomId:", roomId);
 
-interface CanvasProps {
-    params:{
-        roomId: string;
-        }
-    }
-
-export default async function canvasPage (params: CanvasProps){
- const roomId = await(params.roomId);
-    return (
-        <RoomCanvas roomId={roomId}/>
-    )
+  return <RoomCanvas roomId={roomId} />;
 }
