@@ -6,6 +6,7 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-hot-toast';
 
+
 export default function SignIn() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -19,8 +20,9 @@ export default function SignIn() {
       const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/signin`, {  
         email,
         password,
-      });
-
+      }, 
+    
+    );
       const data = response.data;
       if (data.error) {
         toast.error(data.error);

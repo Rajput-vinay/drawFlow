@@ -27,7 +27,7 @@ export function Navigation({ showUserMenu, setShowUserMenu }: NavigationProps) {
             <div className="relative">
               <button 
                 onClick={() => setShowUserMenu(!showUserMenu)}
-                className="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-100"
+                className="flex cursor-pointer items-center space-x-2 p-2 rounded-lg hover:bg-gray-100"
               >
                 <img
                   src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=facearea&facepad=2&w=48&h=48&q=80"

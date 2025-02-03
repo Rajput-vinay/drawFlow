@@ -8,7 +8,7 @@ dotenv.config()
 const userMiddleware = async (req: Request, res: Response, next: NextFunction): Promise<any> =>{
 
    try {
-      console.log(req.headers.authorization)
+      console.log("req.headers.authorization",req.headers.authorization)
       const token= req.headers.authorization?.split(" ")[1]; 
       
  

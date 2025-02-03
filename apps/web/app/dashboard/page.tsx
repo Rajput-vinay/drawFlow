@@ -24,6 +24,7 @@ function Dashboard() {
   const [token, setToken] = useState<string | null>(null);
   const router = useRouter();
 
+
   useEffect(() => {
     const storedToken = localStorage.getItem('token');
     setToken(storedToken);
@@ -37,20 +38,25 @@ function Dashboard() {
     e.preventDefault();
     try {
       const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/createRoom`, {
-        roomName
-      });
+        name:roomName
+    }, {
+      headers: {
+        'Authorization': `Bearer ${token}`, 
+        'Content-Type': 'application/json', 
+      }
+    });
 
       const data = response.data;
       if (data.error) {
-        toast.error(data.error);
+        toast.error("data not ",data.error);
         return;
       }
       toast.success('Room created successfully');
-      router.push(`/canvas/${data.roomId}`); // ✅ Fixed incorrect template literal
+      router.push(`/canvas/${data.roomId}`); 
       setShowCreateRoom(false);
       setRoomName('');
     } catch (error: any) {
-      toast.error('Failed to create room');
+      toast.error('Failed to create room',error.message);
     }
   }, [roomName, router]);
 
@@ -69,7 +75,7 @@ function Dashboard() {
             </h1>
             <button
               onClick={() => activeTab === 'rooms' ? setShowCreateRoom(true) : undefined}
-              className="flex items-center px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
+              className="flex items-center px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors cursor-pointer"
             >
               <Plus className="w-5 h-5 mr-2" />
               {activeTab === 'drawings' ? 'New Drawing' : 'Create Room'}

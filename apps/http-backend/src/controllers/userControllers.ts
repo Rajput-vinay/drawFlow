@@ -49,7 +49,7 @@ export const userSignUp = async (req: Request, res: Response):Promise<any> => {
       message: "User registered successfully",
     });
   } catch (error: any) {
-    console.error("Error in userSignUp:", error);
+    // console.error("Error in userSignUp:", error);
     return res.status(500).json({
       message: "Server error",
       errors: error.message,
@@ -90,7 +90,9 @@ export const userSignIn = async (req: Request, res: Response): Promise<any> => {
 
     // Generate JWT
     const jwtSecret = process.env.JWT_SECRET;
-    console.log(jwtSecret)
+    // console.log(jwtSecret)
+
+
     if (!jwtSecret) {
       throw new Error("JWT_SECRET is not set in environment variables.");
     }
@@ -102,7 +104,7 @@ export const userSignIn = async (req: Request, res: Response): Promise<any> => {
       token,
     });
   } catch (error: any) {
-    console.error("Error in userSignIn:", error);
+    // console.error("Error in userSignIn:", error);
     return res.status(500).json({
       message: "Server error",
       error: error.message,
@@ -124,6 +126,8 @@ export const createRoom = async (req: Request, res: Response): Promise<any> => {
   
     try {
       // Check if userId is present in the request
+      const { name } = result.data;
+      console.log("name",name)
       const userId = req.userId;
       if (!userId) {
         return res.status(401).json({
@@ -133,7 +137,7 @@ export const createRoom = async (req: Request, res: Response): Promise<any> => {
   
       const room = await prismaClient.room.create({
         data: {
-          slug: result.data.name,
+          slug: name,
           adminId: userId,
         },
       });

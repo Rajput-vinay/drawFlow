@@ -10,7 +10,7 @@ export function TabSelector({ activeTab, setActiveTab }: TabSelectorProps) {
     <div className="flex space-x-4 mb-8">
       <button
         onClick={() => setActiveTab('rooms')}
-        className={`px-4 py-2 rounded-lg font-medium ${
+        className={`px-4 py-2 rounded-lg font-medium cursor-pointer ${
           activeTab === 'rooms'
             ? 'bg-purple-100 text-purple-600'
             : 'text-gray-600 hover:bg-gray-100'
@@ -20,7 +20,7 @@ export function TabSelector({ activeTab, setActiveTab }: TabSelectorProps) {
       </button>
       <button
         onClick={() => setActiveTab('drawings')}
-        className={`px-4 py-2 rounded-lg font-medium ${
+        className={`px-4 py-2 rounded-lg font-medium cursor-pointer ${
           activeTab === 'drawings'
             ? 'bg-purple-100 text-purple-600'
             : 'text-gray-600 hover:bg-gray-100'
