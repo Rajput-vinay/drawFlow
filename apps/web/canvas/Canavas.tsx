@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-
 import { Game } from "../drawComponent/game";
 import Toolbar from "./toolbar";
 
@@ -15,9 +14,9 @@ export function Canvas({ roomId, socket }: CanvasProps) {
     const [width, setWidth] = useState(window.innerWidth);
     const [height, setHeight] = useState(window.innerHeight);
     const [activeTool, setActiveTool] = useState<Tool>("rect");
-    const [game, setGame] = useState<Game>();
+    const [game, setGame] = useState<Game | null>(null);
 
-    // Only set width and height when the component mounts or window resizes
+    // Resize event listener to update canvas dimensions
     useEffect(() => {
         const handleResize = () => {
             setWidth(window.innerWidth);
@@ -25,27 +24,25 @@ export function Canvas({ roomId, socket }: CanvasProps) {
         };
 
         window.addEventListener("resize", handleResize);
-
         return () => window.removeEventListener("resize", handleResize);
     }, []);
 
-    // Initialize drawing on the canvas after it's mounted
+    // Initialize Game instance
     useEffect(() => {
         if (canvasRef.current) {
-            const game = new Game(canvasRef.current, roomId, socket);
-            setGame(game);
+            const newGame = new Game(canvasRef.current, roomId, socket);
+            setGame(newGame);
 
             return () => {
-                game.destroy();
+                newGame.destroy();
             };
         }
-    }, [canvasRef, roomId, socket]);
+    }, [roomId, socket]);
 
+    // Update game tool whenever activeTool changes
     useEffect(() => {
-        if (game && activeTool) {
-            game.setTool(activeTool);
-        }
-    }, [activeTool, game]);
+        window.selectedTool = activeTool;
+    }, [activeTool]);
 
     return (
         <div>
