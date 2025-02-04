@@ -25,12 +25,14 @@ export async function initDraw({ canvas, roomId, socket }: InitDrawProps) {
   canvas.height = canvas.offsetHeight;
 
   try {
-    console.log("🔹 Fetching existing shapes for room:", roomId);
+    // console.log("🔹 Fetching existing shapes for room:", roomId);
+    
     existingShapes = await getExistingShapes(roomId);
-    console.log("✅ Existing Shapes:", existingShapes);
+    // console.log("✅ Existing Shapes:", existingShapes);
     drawCanvas(existingShapes, canvas, ctx);
   } catch (error) {
     console.error("❌ Error fetching existing shapes:", error);
+    return;
   }
 
   // Handle incoming WebSocket messages

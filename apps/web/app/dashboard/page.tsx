@@ -2,12 +2,12 @@
 
 import React, { useCallback, useState, useEffect } from 'react';
 import { Plus } from 'lucide-react';
-import { Navigation } from '../component/Navigation';
-import { TabSelector } from '../component/TabSelector';
-import { SearchBar } from '../component/SearchBar';
-import { DrawingList } from '../component/DrawingList';
-import { RoomList } from '../component/RoomList';
-import { CreateRoomModal } from '../component/CreateRoomModal';
+import { Navigation } from '../../component/Navigation';
+import { TabSelector } from '../../component/TabSelector';
+import { SearchBar } from '../../component/SearchBar';
+import { DrawingList } from '../../component/DrawingList';
+import { RoomList } from '../../component/RoomList';
+import { CreateRoomModal } from '../../component/CreateRoomModal';
 import { useRouter } from 'next/navigation';
 import axios from 'axios'
 import { toast } from 'react-hot-toast'
