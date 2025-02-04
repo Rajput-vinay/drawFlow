@@ -73,6 +73,22 @@ wss.on("connection", (ws, request) => {
             }
           });
         }
+
+
+        if (parsedData.type === "erase") {
+          const { roomId, message } = parsedData;
+          await prismaClient.chat.deleteMany({
+            where: { message, roomId: Number(roomId) },
+          });
+
+
+
+          users.forEach((u) => {
+            if (u.rooms.includes(roomId) && u.ws !== ws) {
+              u.ws.send(JSON.stringify({ type: "erase", message, roomId }));
+            }
+          });
+        }
       } catch (error) {
         console.error("Error processing message:", error);
       }

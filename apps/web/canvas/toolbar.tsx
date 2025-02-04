@@ -6,11 +6,12 @@ import { FaRegCircle } from "react-icons/fa6";
 import { GiPencil } from "react-icons/gi";
 import { CiEraser } from "react-icons/ci";
 import { FiMinus } from "react-icons/fi";
+import { Tool } from "./Canavas"
 
 interface ToolbarProps {
-    activeTool: string;
-    setActiveTool: (Tool: string) => void;
-    }
+    activeTool: Tool;
+    setActiveTool: (tool: Tool) => void; 
+}
 
 export default function Toolbar({activeTool,setActiveTool}: ToolbarProps) {
  
@@ -28,7 +29,7 @@ export default function Toolbar({activeTool,setActiveTool}: ToolbarProps) {
       <button className={`p-2 mx-1 rounded cursor-pointer ${activeTool === 'text' ? 'bg-blue-500 text-white' : 'bg-white'}`} onClick={() => setActiveTool("text")}>
         <MdTextFields />
       </button>
-      <button className={`p-2 mx-1 rounded cursor-pointer ${activeTool === 'eraser' ? 'bg-blue-500 text-white' : 'bg-white'}`} onClick={() => setActiveTool("eraser")}>
+      <button className={`p-2 mx-1 rounded cursor-pointer ${activeTool === 'erase' ? 'bg-blue-500 text-white' : 'bg-white'}`} onClick={() => setActiveTool("erase")}>
       <CiEraser />
       </button>
       <button className={`p-2 mx-1 rounded cursor-pointer ${activeTool === 'line' ? 'bg-blue-500 text-white' : 'bg-white'}`} onClick={() => setActiveTool("line")}>

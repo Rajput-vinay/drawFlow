@@ -14,7 +14,7 @@ type shape = {
     radius: number;
 } | {
     type: "pencil";
-    points: { x: number, y: number }[]; 
+    points: { x: number, y: number }[];
 } | {
     type: "line";
     startX: number;
@@ -50,7 +50,7 @@ export class Game {
         this.canvas.removeEventListener("mousemove", this.mouseMoveHandler);
     }
 
-    setTool(tool: "circle" | "rect" | "line" | "pencil" | "erase" | "text") {
+    setTool(tool: Tool) {
         this.selectedTool = tool;
     }
 
@@ -68,6 +68,7 @@ export class Game {
                     this.existingShapes.push(receivedShape);
                     this.drawCanvas();
                 }
+                this.drawCanvas();
             } catch (error) {
                 console.error("❌ Error parsing WebSocket message:", error);
             }
@@ -115,7 +116,7 @@ export class Game {
         this.startY = e.offsetY;
 
         if (this.selectedTool === "pencil") {
-            // Initialize pencil stroke
+            // Initialize pencil stroke and add a new pencil shape
             this.existingShapes.push({ type: "pencil", points: [{ x: this.startX, y: this.startY }] });
         }
     };
@@ -193,9 +194,9 @@ export class Game {
                 this.ctx.closePath();
             } else if (this.selectedTool === "pencil") {
                 // Update pencil line while moving the mouse
-                const lastShape = this.existingShapes.find(shape => shape.type === "pencil");
-                if (lastShape) {
-                    (lastShape as any).points.push({ x: e.offsetX, y: e.offsetY });
+                const lastShape = this.existingShapes[this.existingShapes.length - 1];
+                if (lastShape && lastShape.type === "pencil") {
+                    lastShape.points.push({ x: e.offsetX, y: e.offsetY });
                     this.drawCanvas(); // Redraw the entire canvas
                 }
             }
