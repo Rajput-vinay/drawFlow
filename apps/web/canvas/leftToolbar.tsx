@@ -36,7 +36,7 @@ export default function LeftToolBar({ activeBackgroundColor, setActiveBackground
     
 
     return (
-        <div style={{ backgroundColor: "#232329" }} className={`fixed left-2 top-50 h-76 w-40 text-white p-2 rounded-lg`}>
+        <div style={{ backgroundColor: "#232329" }} className={`fixed left-2 lg:top-50  lg:h-76  lg:w-40 md:h-50 md:w-36  text-white p-2 rounded-lg`}>
             <div>
                 <div>Background Color</div>
                 <div className="flex pt-3 flex-wrap gap-1">

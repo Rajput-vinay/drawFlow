@@ -279,3 +279,59 @@ export const createRoom = async (req: Request, res: Response): Promise<any> => {
       });
     }
   };
+
+  //  delete the content
+
+  export const deleteContent = async (req: Request, res: Response): Promise<any> => {
+    try {
+      const useId = req.userId;
+      if(!useId){
+        return res.status(401).json({
+          message:"User not authenticated"
+        });
+      }
+     
+      const {roomId} = req.params;
+      if(!roomId){
+        return res.status(400).json({
+          message:"Room id is required"
+        });
+      }
+
+      const room = await prismaClient.room.findUnique({
+        where:{
+          id:Number(roomId)
+        }
+      });
+
+      if(!room){
+        return res.status(404).json({
+          message:"Room not found"
+        });
+      }
+
+      if(room.adminId !== useId){
+        return res.status(403).json({
+          message:"You are not authorized to delete this room"
+        });
+      }
+
+      await prismaClient.chat.deleteMany({
+        where:{
+          roomId:Number(roomId)
+        }
+      });
+
+      return res.status(200).json({
+        message:"Room Chat deleted successfully"
+      });
+
+
+    } catch (error: any) {
+      return res.status(500).json({
+        message: "Server error",
+        error: error.message,
+      });
+      
+    }
+  }

@@ -88,22 +88,22 @@ function Dashboard() {
           {/* Header for Rooms Tab */}
           <div className="flex justify-between items-center mb-8">
             <h1 className="text-2xl font-bold text-gray-900">
-              Collaboration Rooms
+              Users Room
             </h1>
             <div className='flex space-x-4'>
             <button
               onClick={() => setShowCreateRoom(true)}
-              className="flex items-center px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors cursor-pointer"
+              className="flex items-center px-4 py-2  bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors cursor-pointer"
             >
-              <Plus className="w-5 h-5 mr-2" />
+              <Plus className="w-5 h-5 mr-2 hidden md:block" />
               Create Room
             </button>
 
             <button
               onClick={() => setShowFindRoom(true)}
-              className="flex items-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors cursor-pointer"
+              className="flex items-center lg:px-4 lg:py-2 px-2 py:1  bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors cursor-pointer"
             >
-              <Plus className="w-5 h-5 mr-2" />
+              <Plus className="w-5 h-5 mr-2 hidden md:block" />
               Enter Room
             </button>
             </div>

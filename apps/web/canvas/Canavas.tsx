@@ -1,15 +1,17 @@
+
 import { useEffect, useRef, useState } from "react";
 import { Game } from "../drawComponent/game";
 import Link from "next/link";
 import Toolbar from "./toolbar";
 import LeftToolBar from "./leftToolbar";
 import Button from "../component/Button"
+
 interface CanvasProps {
     roomId: string;
     socket: WebSocket;
 }
 
-export type Tool = "rect" | "circle" | "pencil" | "erase" | "line" | "text";
+export type Tool = "rect" | "circle" | "pencil" | "erase" | "line" | "arrow";
 
 export function Canvas({ roomId, socket }: CanvasProps) {
     const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -19,8 +21,10 @@ export function Canvas({ roomId, socket }: CanvasProps) {
     const [activeBackgroundColor, setActiveBackgroundColor] = useState<string>("#000");
     const [activeStrokeColor, setActiveStrokeColor] = useState<string>("#fff");
     const [game, setGame] = useState<Game | null>(null);
-    
-
+   
+     
+     
+ 
     // Resize event listener to update canvas dimensions
     useEffect(() => {
         const handleResize = () => {
@@ -44,6 +48,8 @@ export function Canvas({ roomId, socket }: CanvasProps) {
         }
     }, [roomId, socket]);
 
+
+
     // Update game tool whenever activeTool changes
     useEffect(() => {
         window.selectedTool = activeTool;
@@ -53,14 +59,15 @@ export function Canvas({ roomId, socket }: CanvasProps) {
         game?.updateStrokeColor()
     }, [activeTool, activeBackgroundColor, activeStrokeColor,game]);
 
-    console.log("window.selcted bg",window.selectedBackgroundColor);
+  
+
     return (
         <div className="overflow-hidden">
             <Link href="/dashboard">
             <Button />
             </Link>
           
-            <Toolbar activeTool={activeTool} setActiveTool={setActiveTool} />
+            <Toolbar activeTool={activeTool} setActiveTool={setActiveTool}  />
             <canvas ref={canvasRef} width={width} height={height}></canvas>
             <LeftToolBar 
             activeBackgroundColor={activeBackgroundColor} 

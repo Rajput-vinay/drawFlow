@@ -1,4 +1,3 @@
-
 import { 
   Pencil, 
   Share2, 
@@ -7,35 +6,32 @@ import {
   Shapes, 
   Palette,
   ChevronRight,
-  
 } from 'lucide-react';
 import Link from 'next/link';
-
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
       <header className="bg-gradient-to-b from-purple-50 to-white">
-        <nav className="container mx-auto px-6 py-4 flex justify-between items-center">
-          <div className="flex items-center space-x-2">
+        <nav className="container mx-auto px-6 py-4 flex flex-row justify-between items-center">
+          <div className="flex items-center space-x-2 mb-4 sm:mb-0">
             <Shapes className="w-8 h-8 text-purple-600" />
             <span className="text-xl font-bold text-gray-800">DrawFlow</span>
           </div>
-          <div className="flex items-center space-x-6">
-            <a href="#features" className="text-gray-600 hover:text-gray-900">Features</a>
-            <a href="#" className="text-gray-600 hover:text-gray-900">Docs</a>
-            <a href="#" className="text-gray-600 hover:text-gray-900">Blog</a>
-            <Link href="/signin" className="text-gray-600 hover:text-gray-900">Sign In</Link>
-            <Link href="/signup" 
-                  className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors">
+          <div className="flex flex-row items-center space-y-4 sm:space-y-0 sm:space-x-6">
+            <a href="#features" className="text-gray-600 hover:text-gray-900 hidden sm:block">Features</a>
+            <a href="#" className="text-gray-600 hover:text-gray-900 hidden sm:block">Docs</a>
+            <a href="#" className="text-gray-600 hover:text-gray-900 hidden sm:block">Blog</a>
+            <Link href="/signin" className="text-gray-600 hover:text-gray-900 mr-2 sm-mr-0">Sign In</Link>
+            <Link href="/signup" className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors">
               Sign Up
             </Link>
           </div>
         </nav>
 
         <div className="container mx-auto px-6 py-24 text-center">
-          <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-8">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 mb-8">
             Whiteboarding,
             <span className="text-purple-600"> reimagined</span>
           </h1>
@@ -74,11 +70,11 @@ export default function Home() {
       {/* Features Section */}
       <section id="features" className="py-20 bg-gray-50">
         <div className="container mx-auto px-6">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-16">
+          <h2 className="text-3xl sm:text-4xl font-bold text-center text-gray-900 mb-16">
             Everything you need to bring ideas to life
           </h2>
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
             <FeatureCard 
               icon={<Pencil className="w-6 h-6 text-purple-600" />}
               title="Intuitive Drawing"
@@ -141,6 +137,7 @@ interface featureCardPros {
   title ?: string,
   description ?: string
 }
+
 function FeatureCard({ icon, title, description }: featureCardPros) {
   return (
     <div className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow">

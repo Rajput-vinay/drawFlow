@@ -2,7 +2,7 @@
 import axios from "axios";
 
 // Fetch existing shapes from API
-export async function getExistingShapes(roomId: string): Promise<Shape[]> {
+export async function getExistingShapes(roomId: string): Promise<any> {
     try {
       const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/chats/${roomId}`);
       console.log("📩 Existing Shapes Response:", response.data);
