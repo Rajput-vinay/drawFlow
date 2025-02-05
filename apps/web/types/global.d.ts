@@ -5,5 +5,7 @@ export {};
 declare global {
   interface Window {
     selectedTool?: Tool;
+    selectedBackgroundColor?: string;
+    selectedStrokeColor?: string;
   }
 }

@@ -1,29 +1,24 @@
 "use client"
 
-import React, { useCallback, useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Plus } from 'lucide-react';
 import { Navigation } from '../../component/Navigation';
-import { TabSelector } from '../../component/TabSelector';
-import { SearchBar } from '../../component/SearchBar';
-import { DrawingList } from '../../component/DrawingList';
-import { RoomList } from '../../component/RoomList';
 import { CreateRoomModal } from '../../component/CreateRoomModal';
 import { useRouter } from 'next/navigation';
-import axios from 'axios'
-import { toast } from 'react-hot-toast'
+import axios from 'axios';
+import { toast } from 'react-hot-toast';
+import { FindRoomModal } from '../../component/FindRoomModel';
+import Card from '../../component/Card';
 
 function Dashboard() {
-  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
-  const [searchQuery, setSearchQuery] = useState('');
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [showCreateRoom, setShowCreateRoom] = useState(false);
-  const [activeTab, setActiveTab] = useState<'drawings' | 'rooms'>('rooms');
-  
-  // New room form state
-  const [roomName, setRoomName] = useState('');
+  const [showFindRoom, setShowFindRoom] = useState(false);
   const [token, setToken] = useState<string | null>(null);
   const router = useRouter();
 
+  const [findRoom, setFindRoom] = useState('');
+  const [roomName, setRoomName] = useState('');
 
   useEffect(() => {
     const storedToken = localStorage.getItem('token');
@@ -38,27 +33,51 @@ function Dashboard() {
     e.preventDefault();
     try {
       const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/createRoom`, {
-        name:roomName
-    }, {
-      headers: {
-        'Authorization': `Bearer ${token}`, 
-        'Content-Type': 'application/json', 
-      }
-    });
+        name: roomName
+      }, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        }
+      });
 
       const data = response.data;
       if (data.error) {
-        toast.error("data not ",data.error);
+        toast.error("Failed to create room", data.error);
         return;
       }
       toast.success('Room created successfully');
-      router.push(`/canvas/${data.roomId}`); 
+      router.push(`/canvas/${data.roomId}`);
       setShowCreateRoom(false);
       setRoomName('');
     } catch (error: any) {
-      toast.error('Failed to create room',error.message);
+      toast.error('Failed to create room', error.message);
     }
-  }, [roomName, router]);
+  }, [roomName, router, token]);
+
+  const handlefindRoom = useCallback(async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/room/${findRoom}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        }
+      });
+
+      const data = response.data;
+      if (data.error) {
+        toast.error("Room not found", data.error);
+        return;
+      }
+      toast.success('Room found successfully');
+      router.push(`/canvas/${data.room.id}`);
+      setShowFindRoom(false);
+      setFindRoom('');
+    } catch (error: any) {
+      toast.error('Failed to find room', error.message);
+    }
+  }, [findRoom, router, token]);
 
   return (
     token && (
@@ -66,35 +85,32 @@ function Dashboard() {
         <Navigation showUserMenu={showUserMenu} setShowUserMenu={setShowUserMenu} />
 
         <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <TabSelector activeTab={activeTab} setActiveTab={setActiveTab} />
-
-          {/* Header */}
+          {/* Header for Rooms Tab */}
           <div className="flex justify-between items-center mb-8">
             <h1 className="text-2xl font-bold text-gray-900">
-              {activeTab === 'drawings' ? 'My Drawings' : 'Collaboration Rooms'}
+              Collaboration Rooms
             </h1>
+            <div className='flex space-x-4'>
             <button
-              onClick={() => activeTab === 'rooms' ? setShowCreateRoom(true) : undefined}
+              onClick={() => setShowCreateRoom(true)}
               className="flex items-center px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors cursor-pointer"
             >
               <Plus className="w-5 h-5 mr-2" />
-              {activeTab === 'drawings' ? 'New Drawing' : 'Create Room'}
+              Create Room
             </button>
+
+            <button
+              onClick={() => setShowFindRoom(true)}
+              className="flex items-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors cursor-pointer"
+            >
+              <Plus className="w-5 h-5 mr-2" />
+              Enter Room
+            </button>
+            </div>
           </div>
 
-          <SearchBar 
-            searchQuery={searchQuery}
-            setSearchQuery={setSearchQuery}
-            activeTab={activeTab}
-            viewMode={viewMode}
-            setViewMode={setViewMode}
-          />
+          <Card />
 
-          {activeTab === 'drawings' ? (
-            <DrawingList drawings={[]} viewMode={viewMode} />
-          ) : (
-            <RoomList rooms={[]} />
-          )}
         </main>
 
         <CreateRoomModal
@@ -103,6 +119,14 @@ function Dashboard() {
           roomName={roomName}
           setRoomName={setRoomName}
           onSubmit={handleCreateRoom}
+        />
+
+        <FindRoomModal
+          show={showFindRoom}
+          onClose={() => setShowFindRoom(false)}
+          findRoom={findRoom}
+          setFindRoom={setFindRoom}
+          onSubmit={handlefindRoom}
         />
       </div>
     )

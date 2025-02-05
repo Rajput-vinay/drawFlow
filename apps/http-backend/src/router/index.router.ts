@@ -1,5 +1,5 @@
 import express, { Router } from 'express'
-import { userSignIn } from "../controllers/userControllers";
+import { getAllRoom, userSignIn } from "../controllers/userControllers";
 import { userSignUp } from "../controllers/userControllers";
 import { createRoom } from "../controllers/userControllers";
 import userMiddleware from '../middlewares/userMiddlewares';
@@ -12,7 +12,7 @@ import { roomId } from '../controllers/userControllers';
 router.post("/signup", userSignUp);
 router.post("/signin",userSignIn);
 router.get("/chats/:roomId",roomId);
-router.get("/room/:slug",slug)
+router.get("/room/:slug",userMiddleware,slug)
 router.post("/createRoom",userMiddleware,createRoom);
-
+router.get("/getAllRoom",userMiddleware,getAllRoom)
 export default router

@@ -24,7 +24,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} overflow-hidden`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} `}>
         <Toaster position= {"top-right"} />
         {children}
       </body>

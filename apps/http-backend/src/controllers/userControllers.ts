@@ -210,7 +210,7 @@ export const createRoom = async (req: Request, res: Response): Promise<any> => {
         });
       }
   
-      const slug = req.params.slug;
+      const {slug} = req.params;
       if (!slug) {
         return res.status(400).json({
           message: "Slug is required",
@@ -239,3 +239,43 @@ export const createRoom = async (req: Request, res: Response): Promise<any> => {
       });
     }
   }
+
+
+  //  get all room of user
+
+  export const getAllRoom = async (req: Request, res: Response): Promise<any> => {
+    try {
+      const userId = req.userId;
+  
+      if (!userId) {
+        return res.status(401).json({
+          message: "Authentication token is missing or invalid. Please login.",
+        });
+      }
+  
+      const rooms = await prismaClient.room.findMany({
+        where: {
+          adminId: userId,
+        },
+      });
+  
+      if (rooms.length > 0) {
+        return res.status(200).json({
+          message: "Rooms fetched successfully",
+          rooms,
+        });
+      }
+  
+      return res.status(404).json({
+        message: "No rooms found for this user",
+      });
+  
+    } catch (error: any) {
+      console.error('Error fetching rooms:', error);
+  
+      return res.status(500).json({
+        message: "Server error occurred while fetching rooms",
+        error: error.message,
+      });
+    }
+  };

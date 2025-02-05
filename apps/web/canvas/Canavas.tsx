@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { Game } from "../drawComponent/game";
+import Link from "next/link";
 import Toolbar from "./toolbar";
-
+import LeftToolBar from "./leftToolbar";
+import Button from "../component/Button"
 interface CanvasProps {
     roomId: string;
     socket: WebSocket;
@@ -14,7 +16,10 @@ export function Canvas({ roomId, socket }: CanvasProps) {
     const [width, setWidth] = useState(window.innerWidth);
     const [height, setHeight] = useState(window.innerHeight);
     const [activeTool, setActiveTool] = useState<Tool>("rect");
+    const [activeBackgroundColor, setActiveBackgroundColor] = useState<string>("#000");
+    const [activeStrokeColor, setActiveStrokeColor] = useState<string>("#fff");
     const [game, setGame] = useState<Game | null>(null);
+    
 
     // Resize event listener to update canvas dimensions
     useEffect(() => {
@@ -42,12 +47,27 @@ export function Canvas({ roomId, socket }: CanvasProps) {
     // Update game tool whenever activeTool changes
     useEffect(() => {
         window.selectedTool = activeTool;
-    }, [activeTool]);
+        window.selectedBackgroundColor = activeBackgroundColor;
+        window.selectedStrokeColor = activeStrokeColor;
+        game?.updateBackgroundColor()
+        game?.updateStrokeColor()
+    }, [activeTool, activeBackgroundColor, activeStrokeColor,game]);
 
+    console.log("window.selcted bg",window.selectedBackgroundColor);
     return (
-        <div>
-            <canvas ref={canvasRef} width={width} height={height}></canvas>
+        <div className="overflow-hidden">
+            <Link href="/dashboard">
+            <Button />
+            </Link>
+          
             <Toolbar activeTool={activeTool} setActiveTool={setActiveTool} />
+            <canvas ref={canvasRef} width={width} height={height}></canvas>
+            <LeftToolBar 
+            activeBackgroundColor={activeBackgroundColor} 
+            setActiveBackgroundColor ={setActiveBackgroundColor}
+            activeStrokeColor={activeStrokeColor}
+            setActiveStrokeColor={setActiveStrokeColor}
+            />
         </div>
     );
 }
