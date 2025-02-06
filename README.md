@@ -1,85 +1,65 @@
-# Turborepo starter
+# 🎨 DrawFlow - A Collaborative Whiteboarding Tool
 
-This is an official starter Turborepo.
+🚀 **DrawFlow** is an interactive whiteboarding tool inspired by Excalidraw. It enables real-time drawing, collaborative editing, and seamless state management. Whether you're brainstorming ideas, diagramming workflows, or sketching wireframes, DrawFlow provides a smooth and intuitive experience.  
 
-## Using this example
+---
 
-Run the following command:
+## ✨ Features
 
-```sh
-npx create-turbo@latest
-```
+✅ **Real-time Collaboration** - Multiple users can draw simultaneously.  
+✅ **Shape Support** - Draw **circles, rectangles, lines, arrows, and freehand (pencil)**.  
+✅ **Color & Background Customization** - Change shape colors and background.    
+✅ **Save & Load Drawings** - Store and retrieve your work.  
+✅ **Smooth UI/UX** - Built with performance and responsiveness in mind.  
 
-## What's inside?
+---
 
-This Turborepo includes the following packages/apps:
+## 🛠️ Tech Stack
 
-### Apps and Packages
+- **Monorepo Architecture**: Managed with **Turborepo** 🏗️  
+- **Backend**: **Node.js + Express.js** ⚡  
+- **Real-time Collaboration**: Powered by **WebSockets** 🔄  
+- **Frontend**: **Next.js + TypeScript** 🖥️  
+- **Database**: **PostgreSQL + PrismaORM** 📊  
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+---
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+## 🚀 Getting Started
 
-### Utilities
+### 📌 Prerequisites
 
-This Turborepo has some additional tools already setup for you:
+- Node.js (v18+ recommended)
+- PostgreSQL installed and running
+- pnpm (for Turborepo)
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+### 📥 Installation
 
-### Build
+1. **Clone the repository**  
+   ```sh
+   git clone https://github.com/Rajput-vinay/drawFlow.git
+   cd drawflow
 
-To build all apps and packages, run the following command:
+2. **Install Dependencies**:
+   ```bash
+    pnpm install  
 
-```
-cd my-turborepo
-pnpm build
-```
+3. **Set Up Environment Variables: Create a .env file in the root directory and add the following**:
+   ```bash
+    PORT = 8000
+    DATABASE_URL=your_postgresSql_database_url
+    JWT_SECRET=your_jwt_secret
+    NEXT_PUBLIC_API_URL = 'your next public api url'
+    NEXT_PUBLIC_WS_URL = "your websocket api uri"
+    
+ 4. **Start the Server**:
+     ```bash
+     pnpm dev
 
-### Develop
+## License 📜
+This project is licensed under the [MIT License](LICENSE).
 
-To develop all apps and packages, run the following command:
+## Contact 📬
+For feedback or inquiries, feel free to reach out:
 
-```
-cd my-turborepo
-pnpm dev
-```
-
-### Remote Caching
-
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
-
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-```
-cd my-turborepo
-npx turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-```
-npx turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/repo/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
-# excelidraw
+- **Email**: [vinayrajput2004vr@gmail.com](mailto:vinayrajput2004vr@gmail.com)
+- **LinkedIn**: [Vinay Rajput](https://www.linkedin.com/in/vinay-rajput-984668227/)
