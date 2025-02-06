@@ -8,6 +8,7 @@ import {
   ChevronRight,
 } from 'lucide-react';
 import Link from 'next/link';
+import LocalImage from '../component/Image';
 
 export default function Home() {
   return (
@@ -48,7 +49,7 @@ export default function Home() {
               <ChevronRight className="w-5 h-5 ml-2" />
             </Link>
             <button className="border-2 border-gray-300 text-gray-700 px-8 py-3 rounded-lg font-medium hover:border-gray-400 transition-colors">
-              Try Demo
+              Signup
             </button>
           </div>
         </div>
@@ -58,11 +59,12 @@ export default function Home() {
       <section className="py-20">
         <div className="container mx-auto px-6">
           <div className="rounded-xl overflow-hidden shadow-2xl">
-            <img 
+            {/* <img 
               src="https://images.unsplash.com/photo-1611224923853-80b023f02d71?auto=format&fit=crop&w=2000&q=80" 
               alt="DrawFlow Interface Preview"
               className="w-full object-cover"
-            />
+            /> */}
+            <LocalImage />
           </div>
         </div>
       </section>

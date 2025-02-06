@@ -7,5 +7,6 @@ declare global {
     selectedTool?: Tool;
     selectedBackgroundColor?: string;
     selectedStrokeColor?: string;
+    width?: number;
   }
 }
